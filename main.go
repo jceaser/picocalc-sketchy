@@ -80,24 +80,6 @@ func SetPixel(lcd *ili948x.Ili948x, x, y int16, fg color.RGBA) {
 	lcd.SetPixel(x, y, fg)
 }
 
-func between(low, value, high int16) int16 {
-	return max(low, min(value, high))
-}
-
-func max(left, right int16) int16 {
-	if left > right {
-		return left
-	}
-	return right
-}
-
-func min(left, right int16) int16 {
-	if left < right {
-		return left
-	}
-	return right
-}
-
 func nextColor(currentColor color.RGBA) color.RGBA {
 
 	switch currentColor {
@@ -155,13 +137,13 @@ func main() {
 			debug("escape/tab", k)
 			activeColor = nextColor(activeColor)
 		case i2ckbd.LEFT_KEY:
-			x = max(0, x-delta)
+			x = Maximum(0, x-delta)
 		case i2ckbd.UP_KEY:
-			y = max(0, y-delta)
+			y = Maximum(0, y-delta)
 		case i2ckbd.DOWN_KEY:
-			y = min(y+delta, maxy)
+			y = Minimum(y+delta, maxy)
 		case i2ckbd.RIGHT_KEY:
-			x = min(x+delta, maxx)
+			x = Minimum(x+delta, maxx)
 		case i2ckbd.HOME_KEY:
 			x, y = 0, 0
 			lastx, lasty = 0, 0
