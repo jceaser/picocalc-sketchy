@@ -1,8 +1,7 @@
 //go:build tinygo
 
 /************************************************************************************************100
-A RPN calculator based on the gotools calculator I built some time ago
-
+A simple drawing toy that lets you use the arrow keys to draw lines on the screen.
 Compile with:
 	 tinygo build -o tinygo_sketchy.uf2 -target=pico
 	 tinygo build -o tinygo_sketchy2.uf2 -target=pico2
