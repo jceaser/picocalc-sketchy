@@ -13,14 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup tinygo
-        uses: tinygo-org/action-tinygo@v0.4.0
+      - name: Install TinyGo
+        run: |
+          wget https://github.com/tinygo-org/tinygo/releases/download/v0.41.1/tinygo0.41.1.linux-amd64.tar.gz
+          tar -xzf tinygo0.41.1.linux-amd64.tar.gz
+          sudo mv tinygo /usr/local/bin/
 
       - name: Build Pico
-        run: run build -o pico-sketchy.uf2 -target=pico
+        run: tinygo build -o pico-sketchy.uf2 -target=pico
 
       - name: Build Pico2
-        run: run build -o pico2-sketchy.uf2 -target=pico2
+        run: tinygo build -o pico2-sketchy.uf2 -target=pico2
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
