@@ -13,12 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      #- name: Install TinyGo
-      #  run: |
-      #    wget https://github.com/tinygo-org/tinygo/releases/download/v0.41.1/tinygo0.41.1.linux-amd64.tar.gz
-      #    tar -xzf tinygo0.41.1.linux-amd64.tar.gz
-      #    sudo mv tinygo /usr/local/bin/
-
       - name: Setup Tinygo
         uses: acifani/setup-tinygo@v3
         with:

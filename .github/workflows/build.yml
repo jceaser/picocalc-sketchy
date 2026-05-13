@@ -13,6 +13,8 @@ jobs:
 
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v3
+        with:
+          install-binaryen: 'false'
 
       - name: Build Pico
         run: tinygo build -o pico-sketchy.uf2 -target=pico
