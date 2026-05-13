@@ -15,10 +15,10 @@ jobs:
         uses: acifani/setup-tinygo@v3
 
       - name: Build Pico
-        run: tinygo build -o pico-sketchy.uf2 -target=pico ./path/to/your/source
+        run: tinygo build -o pico-sketchy.uf2 -target=pico
 
       - name: Build Pico2
-        run: tinygo build -o pico2-sketchy.uf2 -target=pico2 ./path/to/your/source
+        run: tinygo build -o pico2-sketchy.uf2 -target=pico2
 
       - name: Compilation Successful
         run: echo "Compilation succeeded!"
