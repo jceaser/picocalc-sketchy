@@ -2,6 +2,8 @@
 
 A simple drawing toy that lets you use the arrow keys to draw lines on the screen.
 
+[![sketchy running on host](resources/sketchyX640.png)](resources/sketchy.png)
+
 ## Features
 
 - Draw lines using the arrow keys
