@@ -20,7 +20,7 @@ jobs:
       #    sudo mv tinygo /usr/local/bin/
 
       - name: Setup Tinygo
-        uses: tinygo-org/action-tinygo@v3
+        uses: acifani/setup-tinygo@v3
         with:
           install-binaryen: 'false'
 
