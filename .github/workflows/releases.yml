@@ -13,11 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install TinyGo
-        run: |
-          wget https://github.com/tinygo-org/tinygo/releases/download/v0.41.1/tinygo0.41.1.linux-amd64.tar.gz
-          tar -xzf tinygo0.41.1.linux-amd64.tar.gz
-          sudo mv tinygo /usr/local/bin/
+      #- name: Install TinyGo
+      #  run: |
+      #    wget https://github.com/tinygo-org/tinygo/releases/download/v0.41.1/tinygo0.41.1.linux-amd64.tar.gz
+      #    tar -xzf tinygo0.41.1.linux-amd64.tar.gz
+      #    sudo mv tinygo /usr/local/bin/
+
+      - name: Setup Tinygo
+        uses: tinygo-org/action-tinygo@v3
+        with:
+          install-binaryen: 'false'
 
       - name: Build Pico
         run: tinygo build -o pico-sketchy.uf2 -target=pico
