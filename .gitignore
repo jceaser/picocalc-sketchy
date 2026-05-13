@@ -1,0 +1,5 @@
+.aider*
+.env
+*.uf2
+*.uf2.*
+*.off
