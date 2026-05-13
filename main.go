@@ -143,51 +143,47 @@ func main() {
 		if err != nil {
 			showError(err)
 		}
-		if k == 0 {
-			//pass
+		switch k {
+		case 0:
 			now := time.Now().Unix()
-			//debug("ts", now-tickSleep)
 			if (now - tickSleep) > 5 {
-				//debug("k", now - tickSleep)
 				machine.Watchdog.Update()
 				time.Sleep(750 * time.Millisecond)
 				machine.Watchdog.Update()
 				continue
 			}
-		} else if k == i2ckbd.ESC_KEY || k == 0x09 {
+		case i2ckbd.ESC_KEY, 0x09:
 			debug("escape/tab", k)
 			activeColor = nextColor(activeColor)
-		} else if k == i2ckbd.LEFT_KEY {
+		case i2ckbd.LEFT_KEY:
 			x = max(0, x-delta)
-		} else if k == i2ckbd.UP_KEY {
+		case i2ckbd.UP_KEY:
 			y = max(0, y-delta)
-		} else if k == i2ckbd.DOWN_KEY {
+		case i2ckbd.DOWN_KEY:
 			y = min(y+delta, maxy)
-		} else if k == i2ckbd.RIGHT_KEY {
+		case i2ckbd.RIGHT_KEY:
 			x = min(x+delta, maxx)
-		} else if k == i2ckbd.HOME_KEY {
+		case i2ckbd.HOME_KEY:
 			x, y = 0, 0
 			lastx, lasty = 0, 0
-		} else if k == i2ckbd.DEL_KEY {
+		case i2ckbd.DEL_KEY:
 			lcd.FillRectangle(0, 0, 320, 320, ili948x.BLACK)
-		} else if k == i2ckbd.END_KEY {
+		case i2ckbd.END_KEY:
 			x, y = 299, 299
 			lastx, lasty = 299, 299
-		} else {
-			//pass
+		default:
+			if x != lastx || y != lasty {
+				for xp := x-1 ; xp < x+1 ; xp++ {
+					for yp := y-1 ; yp <= y+1 ; yp++ {
+						SetPixel(lcd, xp, yp, activeColor)
+					}
+				}
+				lastx = x
+				lasty = y
+				tickSleep = time.Now().Unix()
+			}
 		}
 
-		if x != lastx || y != lasty {
-			//wider then tall
-			for xp := x-1 ; xp < x+1 ; xp++ {
-				for yp := y-1 ; yp <= y+1 ; yp++ {
-					SetPixel(lcd, xp, yp, activeColor)
-				}
-			}
-			lastx = x
-			lasty = y
-			tickSleep = time.Now().Unix()
-		}
 		machine.Watchdog.Update()
 		time.Sleep(10 * time.Millisecond)
 		machine.Watchdog.Update()
