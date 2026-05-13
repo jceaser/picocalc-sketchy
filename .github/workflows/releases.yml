@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Tinygo
         uses: acifani/setup-tinygo@v3
@@ -24,13 +24,18 @@ jobs:
       - name: Build Pico2
         run: tinygo build -o pico2-sketchy.uf2 -target=pico2
 
+      - name: Create checksums
+        run: sha256sum *.uf2 > SHA256SUMS.txt
+
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this release:
-            - Your release notes here.
+          generate_release_notes: true
+          files: |
+            pico-sketchy.uf2
+            pico2-sketchy.uf2
+            SHA256SUMS.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
